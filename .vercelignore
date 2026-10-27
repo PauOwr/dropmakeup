@@ -1,0 +1,8 @@
+node_modules
+**/.next
+**/.env
+**/.env.local
+referencias
+apps/backend/.medusa
+.claude
+**/tsconfig.tsbuildinfo
