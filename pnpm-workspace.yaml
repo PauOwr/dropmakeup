@@ -1,0 +1,26 @@
+packages:
+  - "apps/**"
+  - "!apps/backend/.medusa/**"
+
+# pnpm 11+
+allowBuilds:
+  "@medusajs/telemetry": true
+  # Revisados: Medusa no los necesita (con pnpm 10 tampoco se ejecutaban)
+  "@swc/core": false
+  esbuild: false
+  msgpackr-extract: false
+  protobufjs: false
+  unrs-resolver: false
+
+# pnpm 10.x
+onlyBuiltDependencies:
+  - "@medusajs/telemetry"
+
+# Ejecuta los scripts con el shell multiplataforma de pnpm: así `TEST_TYPE=unit jest` funciona también en Windows
+shellEmulator: true
+
+# Movido desde package.json: pnpm 11+ ya no lee "pnpm.overrides"
+overrides:
+  "@types/react": "19.0.5"
+  "@types/react-dom": "19.0.5"
+  tsconfig-paths: "^4.2.0"
