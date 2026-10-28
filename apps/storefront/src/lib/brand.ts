@@ -26,9 +26,9 @@ export const BRAND = {
 // mientras alguno siga entre corchetes, las páginas legales muestran un aviso.
 // `registry` solo hace falta si vendes como sociedad; si eres autónomo, déjalo "".
 export const LEGAL = {
-  owner: "[Nombre y apellidos o razón social]",
-  taxId: "[NIF o CIF]",
-  address: "[Domicilio completo, código postal y ciudad]",
+  owner: "[DROPMAKEUP]",
+  taxId: "[CIF]",
+  address: "[c/ Montserrat 28]",
   email: "[Email de contacto]",
   registry: "[Datos de inscripción en el Registro Mercantil, si es una sociedad]",
   lastUpdated: "28 de octubre de 2026",
