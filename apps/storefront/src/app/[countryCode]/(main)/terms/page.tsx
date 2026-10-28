@@ -7,22 +7,22 @@ export const dynamic = "force-static"
 export const revalidate = 60
 
 export const metadata: Metadata = {
-  title: "Terms of service",
-  description: `Terms that apply to purchases from ${STORE_NAME}.`,
+  title: "Términos y condiciones",
+  description: `Condiciones de las compras en ${STORE_NAME}.`,
 }
 
 export default function TermsPage() {
   return (
-    <PolicyPage title="Terms of service">
+    <PolicyPage title="Términos y condiciones">
       <PlaceholderNotice />
       <p>
-        By placing an order with {STORE_NAME} you agree to these terms. Prices,
-        product availability and shipping options are shown on the product
-        pages and at checkout, and may change without notice.
+        Al hacer un pedido en {STORE_NAME} aceptas estas condiciones. Los
+        precios incluyen el IVA. Los precios, la disponibilidad y las opciones
+        de envío se muestran en cada producto y en el checkout, y pueden cambiar.
       </p>
       <p>
-        Orders are confirmed by email once payment is received. Returns and
-        refunds are handled according to our return policy.
+        El pedido queda confirmado cuando recibimos el pago. Las devoluciones y
+        los reembolsos se rigen por nuestra política de devoluciones.
       </p>
     </PolicyPage>
   )

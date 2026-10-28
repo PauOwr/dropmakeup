@@ -150,10 +150,10 @@ function FreeShippingInline({
               <div className="flex items-center gap-1.5">
                 {" "}
                 <CheckCircleSolid className="text-green-500 inline-block" />{" "}
-                Free Shipping unlocked!
+                ¡Envío gratis conseguido!
               </div>
             ) : (
-              `Unlock Free Shipping`
+              `Consigue el envío gratis`
             )}
           </div>
 
@@ -162,14 +162,14 @@ function FreeShippingInline({
               "opacity-0 invisible": price.target_reached,
             })}
           >
-            Only{" "}
+            Te faltan{" "}
             <span className="text-neutral-950">
               {convertToLocale({
                 amount: price.target_remaining,
                 currency_code: cart.currency_code,
               })}
             </span>{" "}
-            away
+            
           </div>
         </div>
         <div className="flex justify-between gap-1">
@@ -218,7 +218,7 @@ function FreeShippingPopup({
         </Button>
       </div>
 
-      <div className="w-[400px] bg-black text-white p-6 rounded-lg ">
+      <div className="w-[min(400px,calc(100vw-2.5rem))] bg-black text-white p-6 rounded-lg ">
         <div className="pb-4">
           <div className="space-y-3">
             <div className="flex justify-between text-[15px] text-neutral-400">
@@ -226,10 +226,10 @@ function FreeShippingPopup({
                 {price.target_reached ? (
                   <div className="flex items-center gap-1.5">
                     <CheckCircleSolid className="text-green-500 inline-block" />{" "}
-                    Free Shipping unlocked!
+                    ¡Envío gratis conseguido!
                   </div>
                 ) : (
-                  `Unlock Free Shipping`
+                  `Consigue el envío gratis`
                 )}
               </div>
 
@@ -238,14 +238,14 @@ function FreeShippingPopup({
                   "opacity-0 invisible": price.target_reached,
                 })}
               >
-                Only{" "}
+                Te faltan{" "}
                 <span className="text-white">
                   {convertToLocale({
                     amount: price.target_remaining,
                     currency_code: cart.currency_code,
                   })}
                 </span>{" "}
-                away
+                
               </div>
             </div>
             <div className="flex justify-between gap-1">
@@ -268,14 +268,14 @@ function FreeShippingPopup({
             className="rounded-2xl bg-transparent shadow-none outline-hidden border border-white text-[15px] py-2.5 px-4"
             href="/cart"
           >
-            View cart
+            Ver la cesta
           </LocalizedClientLink>
 
           <LocalizedClientLink
             className="grow rounded-2xl bg-white text-neutral-950 shadow-none outline-hidden border border-white text-[15px] py-2.5 px-4 text-center"
             href="/store"
           >
-            View products
+            Ver productos
           </LocalizedClientLink>
         </div>
       </div>

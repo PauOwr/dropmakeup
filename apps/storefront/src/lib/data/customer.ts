@@ -110,7 +110,10 @@ export async function signup(
       fetchError.statusText !== "Unauthorized" ||
       fetchError.message !== "Identity with email already exists"
     ) {
-      return { state: "error", error: String(error) }
+      return {
+        state: "error",
+        error: "No hemos podido crear la cuenta. Revisa los datos e inténtalo de nuevo.",
+      }
     }
   }
 
@@ -145,8 +148,8 @@ async function completeLogin(
 
   try {
     result = await sdk.auth.login("customer", "emailpass", { email, password })
-  } catch (error) {
-    return { state: "error", error: String(error) }
+  } catch {
+    return { state: "error", error: "El email o la contraseña no son correctos." }
   }
 
   // A `location` is returned by third-party auth providers, which this flow
@@ -154,7 +157,7 @@ async function completeLogin(
   if (typeof result === "object" && "location" in result) {
     return {
       state: "error",
-      error: "This login method isn't supported by the storefront.",
+      error: "Este método de inicio de sesión no está disponible.",
     }
   }
 
@@ -176,7 +179,7 @@ async function completeLogin(
   if (typeof result !== "string") {
     return {
       state: "error",
-      error: "Authentication requires additional steps that aren't supported.",
+      error: "No se ha podido completar el inicio de sesión.",
     }
   }
 

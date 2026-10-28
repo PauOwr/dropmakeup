@@ -44,9 +44,38 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
   const maxQtyFromInventory = 10
   const maxQuantity = item.variant?.manage_inventory ? 10 : maxQtyFromInventory
 
+  const quantityControls = (
+    <>
+      <div className="flex gap-2 items-center w-28">
+        <DeleteButton id={item.id} data-testid="product-delete-button" />
+        <CartItemSelect
+          value={item.quantity}
+          onChange={(value) => changeQuantity(parseInt(value.target.value))}
+          className="w-14 h-10 p-4"
+          aria-label={`Cantidad de ${item.product_title}`}
+          data-testid="product-select-button"
+        >
+          {/* TODO: Update this with the v2 way of managing inventory */}
+          {Array.from(
+            {
+              length: Math.min(maxQuantity, 10),
+            },
+            (_, i) => (
+              <option value={i + 1} key={i}>
+                {i + 1}
+              </option>
+            )
+          )}
+        </CartItemSelect>
+        {updating && <Spinner />}
+      </div>
+      <ErrorMessage error={error} data-testid="product-error-message" />
+    </>
+  )
+
   return (
     <Table.Row className="w-full" data-testid="product-row">
-      <Table.Cell className="pl-0! p-4 w-24">
+      <Table.Cell className="pl-0! p-2 xsmall:p-4 w-16 xsmall:w-24">
         <LocalizedClientLink
           href={`/products/${item.product_handle}`}
           className={clx("flex", {
@@ -62,7 +91,7 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
         </LocalizedClientLink>
       </Table.Cell>
 
-      <Table.Cell className="text-left">
+      <Table.Cell className="text-left px-2 xsmall:px-4">
         <Text
           className="txt-medium-plus text-ui-fg-base"
           data-testid="product-title"
@@ -70,37 +99,14 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
           {item.product_title}
         </Text>
         <LineItemOptions variant={item.variant} data-testid="product-variant" />
+        {type === "full" && (
+          <div className="mt-3 xsmall:hidden">{quantityControls}</div>
+        )}
       </Table.Cell>
 
       {type === "full" && (
-        <Table.Cell>
-          <div className="flex gap-2 items-center w-28">
-            <DeleteButton id={item.id} data-testid="product-delete-button" />
-            <CartItemSelect
-              value={item.quantity}
-              onChange={(value) => changeQuantity(parseInt(value.target.value))}
-              className="w-14 h-10 p-4"
-              data-testid="product-select-button"
-            >
-              {/* TODO: Update this with the v2 way of managing inventory */}
-              {Array.from(
-                {
-                  length: Math.min(maxQuantity, 10),
-                },
-                (_, i) => (
-                  <option value={i + 1} key={i}>
-                    {i + 1}
-                  </option>
-                )
-              )}
-
-              <option value={1} key={1}>
-                1
-              </option>
-            </CartItemSelect>
-            {updating && <Spinner />}
-          </div>
-          <ErrorMessage error={error} data-testid="product-error-message" />
+        <Table.Cell className="hidden xsmall:table-cell">
+          {quantityControls}
         </Table.Cell>
       )}
 

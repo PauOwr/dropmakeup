@@ -53,7 +53,7 @@ export default async function SearchPage(props: Props) {
       )}
       {query && response.products.length === 0 ? (
         <p className="text-ui-fg-subtle">
-          No products match your search. Try a different keyword.
+          No hay productos que coincidan con tu búsqueda. Prueba con otra palabra.
         </p>
       ) : (
         <ul

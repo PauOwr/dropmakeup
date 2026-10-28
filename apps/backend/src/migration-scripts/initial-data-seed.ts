@@ -204,14 +204,14 @@ export default async function initial_data_seed({
   await createShippingOptionsWorkflow(container).run({
     input: [
       {
-        name: "Standard Shipping",
+        name: "Envío estándar",
         price_type: "flat",
         provider_id: "manual_manual",
         service_zone_id: fulfillmentSet.service_zones[0].id,
         shipping_profile_id: shippingProfile.id,
         type: {
-          label: "Standard",
-          description: "Ship in 2-3 days.",
+          label: "Estándar",
+          description: "Envío a domicilio con seguimiento.",
           code: "standard",
         },
         prices: [
@@ -242,14 +242,14 @@ export default async function initial_data_seed({
         ],
       },
       {
-        name: "Express Shipping",
+        name: "Envío exprés",
         price_type: "flat",
         provider_id: "manual_manual",
         service_zone_id: fulfillmentSet.service_zones[0].id,
         shipping_profile_id: shippingProfile.id,
         type: {
-          label: "Express",
-          description: "Ship in 24 hours.",
+          label: "Exprés",
+          description: "Envío a domicilio más rápido, con seguimiento.",
           code: "express",
         },
         prices: [

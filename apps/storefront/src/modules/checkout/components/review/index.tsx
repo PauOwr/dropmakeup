@@ -32,7 +32,7 @@ const Review = ({ cart }: { cart: HttpTypes.StoreCart }) => {
             }
           )}
         >
-          Review
+          Revisión
         </Heading>
       </div>
       {isOpen && previousStepsCompleted && (
@@ -40,10 +40,10 @@ const Review = ({ cart }: { cart: HttpTypes.StoreCart }) => {
           <div className="flex items-start gap-x-1 w-full mb-6">
             <div className="w-full">
               <Text className="txt-medium-plus text-ui-fg-base mb-1">
-                By clicking the Place Order button, you confirm that you have
-                read, understand and accept our Terms of Use, Terms of Sale and
-                Returns Policy and acknowledge that you have read Medusa
-                Store&apos;s Privacy Policy.
+                Al pulsar «Realizar pedido» confirmas que has leído y aceptas
+                nuestros Términos y condiciones y nuestra Política de
+                devoluciones, y que has leído la Política de privacidad de
+                dropmakeup.
               </Text>
             </div>
           </div>

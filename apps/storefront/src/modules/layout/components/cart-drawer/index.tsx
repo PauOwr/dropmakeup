@@ -200,16 +200,16 @@ export default function CartDrawer({
                 <span
                   className="text-base font-semibold"
                   data-testid="cart-subtotal"
-                  data-value={cart.item_subtotal ?? 0}
+                  data-value={cart.item_total ?? 0}
                 >
                   {convertToLocale({
-                    amount: cart.item_subtotal ?? 0,
+                    amount: cart.item_total ?? 0,
                     currency_code: cart.currency_code,
                   })}
                 </span>
               </div>
               <p className="text-xs text-muted-foreground">
-                Los gastos de envío y los impuestos se calculan al finalizar la
+                IVA incluido. Los gastos de envío se calculan al finalizar la
                 compra.
               </p>
               <LocalizedClientLink
