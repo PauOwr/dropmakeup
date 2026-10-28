@@ -10,6 +10,7 @@ const STATIC_PATHS = [
   "/returns",
   "/terms",
   "/privacy",
+  "/legal",
   "/contact",
 ]
 const PAGE_SIZE = 200

@@ -21,10 +21,37 @@ export const BRAND = {
     "Maquillaje en tonos nude, rosa y dorado: labiales, bases, coloretes e iluminadores para tu día a día.",
 }
 
+// Datos del titular de la tienda para el aviso legal, la privacidad y los
+// términos (LSSI y RGPD). Rellénalos antes de abrir la tienda al público:
+// mientras alguno siga entre corchetes, las páginas legales muestran un aviso.
+// `registry` solo hace falta si vendes como sociedad; si eres autónomo, déjalo "".
+export const LEGAL = {
+  owner: "[Nombre y apellidos o razón social]",
+  taxId: "[NIF o CIF]",
+  address: "[Domicilio completo, código postal y ciudad]",
+  email: "[Email de contacto]",
+  registry: "[Datos de inscripción en el Registro Mercantil, si es una sociedad]",
+  lastUpdated: "28 de octubre de 2026",
+}
+
+export const isLegalDataComplete = () =>
+  ![LEGAL.owner, LEGAL.taxId, LEGAL.address, LEGAL.email, LEGAL.registry].some(
+    (value) => value.startsWith("[")
+  )
+
+// Plazos de entrega para los textos de marketing (barra de avisos y ficha de
+// producto). Las páginas de envíos y devoluciones los leen de los metadatos de
+// la región en Medusa: si cambias uno, cambia también el otro.
+export const DELIVERY_TIMES = {
+  standard: "7-12 días laborables",
+  express: "5-9 días laborables",
+  returnDays: 14,
+}
+
 // Avisos de la barra superior. Deben ser ciertos para tu tienda.
 export const ANNOUNCEMENTS: readonly string[] = [
-  "Enviamos a España y a otros países de Europa",
-  "Tienes 14 días para devolver tu pedido",
+  `Envío estándar en ${DELIVERY_TIMES.standard}`,
+  `Tienes ${DELIVERY_TIMES.returnDays} días para devolver tu pedido`,
   "Descubre los nuevos tonos nude y rosa",
 ]
 
@@ -41,6 +68,7 @@ export const FOOTER_HELP_LINKS: readonly BrandLink[] = [
   { label: "Contacto", href: "/contact" },
   { label: "Términos y condiciones", href: "/terms" },
   { label: "Privacidad", href: "/privacy" },
+  { label: "Aviso legal", href: "/legal" },
 ]
 
 // Redes sociales: añade aquí tus perfiles reales (la columna aparece al tener alguno).

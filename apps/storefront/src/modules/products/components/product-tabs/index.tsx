@@ -7,6 +7,8 @@ import Accordion from "./accordion"
 import { HttpTypes } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 
+import { DELIVERY_TIMES } from "@/lib/brand"
+
 type ProductTabsProps = {
   product: HttpTypes.StoreProduct
 }
@@ -87,8 +89,9 @@ const ShippingInfoTab = () => {
           <div>
             <span className="font-semibold">Envío</span>
             <p className="max-w-sm">
-              Los plazos y los gastos de envío dependen de tu país. Tienes todos
-              los detalles en nuestra{" "}
+              Envío estándar en {DELIVERY_TIMES.standard} y exprés en{" "}
+              {DELIVERY_TIMES.express}, con seguimiento. Tienes todos los
+              detalles en nuestra{" "}
               <LocalizedClientLink href="/shipping" className="underline">
                 página de envíos
               </LocalizedClientLink>
@@ -101,7 +104,9 @@ const ShippingInfoTab = () => {
           <div>
             <span className="font-semibold">Devoluciones</span>
             <p className="max-w-sm">
-              Tienes 14 días naturales desde la entrega para devolver tu pedido.
+              Tienes {DELIVERY_TIMES.returnDays} días naturales desde la entrega
+              para devolver tu pedido (los cosméticos, solo si siguen
+              precintados).
               Consulta cómo hacerlo en la{" "}
               <LocalizedClientLink href="/returns" className="underline">
                 política de devoluciones

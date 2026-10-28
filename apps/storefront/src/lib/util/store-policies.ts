@@ -1,11 +1,19 @@
 import { HttpTypes } from "@medusajs/types"
 
-export type StorePolicies = {
+type DayRange = { min: number; max: number }
+
+export type ShippingPolicy = {
+  shippingRate: number
+  handlingDays: DayRange
+  transitDays: DayRange
+}
+
+// Los plazos de envío estándar están en las claves de siempre; los del envío
+// exprés, en las claves `express_*` (null si la región no las tiene)
+export type StorePolicies = ShippingPolicy & {
   returnWindowDays: number
   freeReturns: boolean
-  shippingRate: number
-  handlingDays: { min: number; max: number }
-  transitDays: { min: number; max: number }
+  express: ShippingPolicy | null
 }
 
 const toNumber = (value: unknown) => {
@@ -35,6 +43,15 @@ export const getRegionPolicies = (
     return null
   }
 
+  const express = {
+    shippingRate: toNumber(metadata.express_shipping_rate),
+    handlingMin: toNumber(metadata.express_handling_days_min),
+    handlingMax: toNumber(metadata.express_handling_days_max),
+    transitMin: toNumber(metadata.express_transit_days_min),
+    transitMax: toNumber(metadata.express_transit_days_max),
+  }
+  const hasExpress = Object.values(express).every((value) => value !== null)
+
   return {
     returnWindowDays: values.returnWindowDays!,
     freeReturns:
@@ -42,8 +59,21 @@ export const getRegionPolicies = (
     shippingRate: values.shippingRate!,
     handlingDays: { min: values.handlingMin!, max: values.handlingMax! },
     transitDays: { min: values.transitMin!, max: values.transitMax! },
+    express: hasExpress
+      ? {
+          shippingRate: express.shippingRate!,
+          handlingDays: { min: express.handlingMin!, max: express.handlingMax! },
+          transitDays: { min: express.transitMin!, max: express.transitMax! },
+        }
+      : null,
   }
 }
+
+/** Plazo total de entrega que ve el cliente: preparación + tránsito. */
+export const deliveryDays = (policy: ShippingPolicy): DayRange => ({
+  min: policy.handlingDays.min + policy.transitDays.min,
+  max: policy.handlingDays.max + policy.transitDays.max,
+})
 
 const businessDays = (range: { min: number; max: number }) => ({
   "@type": "QuantitativeValue",
@@ -99,5 +129,5 @@ export const buildRegionsReturnPolicies = (regions: HttpTypes.StoreRegion[]) =>
       .map((country) => buildReturnPolicy(policies, country.iso_2!))
   })
 
-export const formatDayRange = ({ min, max }: { min: number; max: number }) =>
+export const formatDayRange = ({ min, max }: DayRange) =>
   min === max ? `${min}` : `${min}-${max}`

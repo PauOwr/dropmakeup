@@ -211,7 +211,7 @@ export default async function initial_data_seed({
         shipping_profile_id: shippingProfile.id,
         type: {
           label: "Estándar",
-          description: "Envío a domicilio con seguimiento.",
+          description: "Entrega en 7-12 días laborables, con seguimiento.",
           code: "standard",
         },
         prices: [
@@ -249,7 +249,7 @@ export default async function initial_data_seed({
         shipping_profile_id: shippingProfile.id,
         type: {
           label: "Exprés",
-          description: "Envío a domicilio más rápido, con seguimiento.",
+          description: "Entrega en 5-9 días laborables, con seguimiento.",
           code: "express",
         },
         prices: [
