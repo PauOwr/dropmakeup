@@ -10,7 +10,11 @@
  */
 import type { ExecArgs } from '@medusajs/framework/types'
 import { ContainerRegistrationKeys } from '@medusajs/framework/utils'
+import { reindexSearchIndexesWorkflow } from '@medusajs/medusa/core-flows'
 import { importCjProductWorkflow } from '../workflows/import-cj-product'
+
+// Espera máxima a que termine la actualización del índice de búsqueda
+const SEARCH_SYNC_TIMEOUT_MS = 120_000
 
 export default async function importCjProduct({ container, args }: ExecArgs) {
   const logger = container.resolve(ContainerRegistrationKeys.LOGGER)
@@ -44,4 +48,31 @@ export default async function importCjProduct({ container, args }: ExecArgs) {
       `Producto importado en borrador: ${product.title} (${product.id}), ${product.variants?.length ?? 0} variantes`
     )
   }
+
+  // La tienda y el buscador leen del índice de búsqueda. Desde la consola los
+  // eventos de producto no llegan a indexarse antes de que el proceso termine,
+  // así que se reindexan aquí los productos importados y se espera al resultado.
+  const startedAt = new Date()
+  await reindexSearchIndexesWorkflow(container).run({
+    input: { index: 'product', strategy: 'in_place', filters: { id: result.map((product) => product.id) } },
+  })
+  const pg = container.resolve(ContainerRegistrationKeys.PG_CONNECTION)
+  for (let waited = 0; waited < SEARCH_SYNC_TIMEOUT_MS; waited += 2000) {
+    const { rows } = await pg.raw(
+      'select status, error from search_index_sync where created_at >= ? order by created_at desc',
+      [startedAt]
+    )
+    const syncs = rows as { status: string; error: string | null }[]
+    if (syncs.length && syncs.every((sync) => sync.status === 'done' || sync.status === 'failed')) {
+      const failed = syncs.find((sync) => sync.status === 'failed')
+      if (failed) {
+        logger.error(`No se pudo actualizar el índice de búsqueda: ${failed.error}`)
+      } else {
+        logger.info('Índice de búsqueda actualizado')
+      }
+      return
+    }
+    await new Promise((resolve) => setTimeout(resolve, 2000))
+  }
+  logger.warn('El índice de búsqueda no terminó de actualizarse: reindexa desde el admin')
 }
