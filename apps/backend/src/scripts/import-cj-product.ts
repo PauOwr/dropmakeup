@@ -2,7 +2,9 @@
  * Importa un producto de CJdropshipping como producto en borrador, con el id de variante de CJ
  * (metadata.cj_vid) en cada variante. Precio de venta en EUR = coste en USD × CJ_USD_TO_EUR × CJ_PRICE_MARKUP.
  *
- *   pnpm --filter backend exec medusa exec ./src/scripts/import-cj-product.ts <pid o SKU de producto de CJ>
+ *   pnpm --filter backend exec medusa exec ./src/scripts/import-cj-product.ts <pid o SKU de CJ>
+ *
+ * El SKU puede ser el del producto o el de cualquiera de sus variantes: se importa el producto entero.
  *
  * El producto queda en borrador: revisa textos, precios e imágenes y publícalo desde el panel.
  */
