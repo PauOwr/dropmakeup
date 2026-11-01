@@ -28,7 +28,7 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
   return (
     <>
       <div
-        className="content-container grid gap-8 py-6 small:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] small:gap-14 small:py-12"
+        className="content-container grid grid-cols-1 gap-8 py-6 small:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] small:gap-14 small:py-12"
         data-testid="product-container"
       >
         <VariantImageGallery product={product} />

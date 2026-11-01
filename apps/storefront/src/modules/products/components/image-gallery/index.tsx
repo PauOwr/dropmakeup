@@ -44,7 +44,7 @@ const ImageGallery = ({ images, title }: ImageGalleryProps) => {
 
   if (!count) {
     return (
-      <BrandVisual tone="nude" className="aspect-4/5 w-full" />
+      <BrandVisual tone="nude" className="aspect-square w-full" />
     )
   }
 
@@ -66,7 +66,7 @@ const ImageGallery = ({ images, title }: ImageGalleryProps) => {
   }
 
   return (
-    <div className="flex flex-col gap-3 small:flex-row-reverse small:items-start">
+    <div className="flex min-w-0 flex-col gap-3 small:flex-row-reverse small:items-start">
       <div
         role="group"
         aria-roledescription="carrusel"
@@ -76,7 +76,7 @@ const ImageGallery = ({ images, title }: ImageGalleryProps) => {
           if (event.key === "ArrowRight") paginate(1)
           if (event.key === "ArrowLeft") paginate(-1)
         }}
-        className="relative aspect-4/5 w-full overflow-hidden bg-nude-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+        className="relative aspect-square w-full overflow-hidden bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
       >
         <AnimatePresence initial={false} custom={direction}>
           <motion.div
@@ -103,7 +103,7 @@ const ImageGallery = ({ images, title }: ImageGalleryProps) => {
               priority={current === 0}
               sizes="(min-width: 1024px) 55vw, 100vw"
               draggable={false}
-              className="pointer-events-none object-cover select-none"
+              className="pointer-events-none object-contain select-none"
             />
           </motion.div>
         </AnimatePresence>
@@ -152,7 +152,7 @@ const ImageGallery = ({ images, title }: ImageGalleryProps) => {
                   aria-label={`Ver imagen ${thumbIndex + 1} de ${count}`}
                   aria-current={isActive || undefined}
                   className={cn(
-                    "relative block aspect-4/5 w-16 overflow-hidden bg-nude-soft transition-opacity small:w-20",
+                    "relative block aspect-square w-16 overflow-hidden bg-white transition-opacity small:w-20",
                     !isActive && "opacity-60 hover:opacity-100"
                   )}
                 >
@@ -161,7 +161,7 @@ const ImageGallery = ({ images, title }: ImageGalleryProps) => {
                     alt=""
                     fill
                     sizes="80px"
-                    className="object-cover"
+                    className="object-contain"
                   />
                   {isActive && (
                     <motion.span

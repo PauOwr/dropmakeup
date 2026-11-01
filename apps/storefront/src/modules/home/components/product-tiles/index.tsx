@@ -35,7 +35,7 @@ export default function ProductTiles({
             .slice(0, placeholders)
             .map((tone, index) => (
               <li key={index}>
-                <BrandVisual tone={tone} className="aspect-4/5" />
+                <BrandVisual tone={tone} className="aspect-square" />
                 <p className="text-eyebrow mt-4 text-muted-foreground">
                   Próximamente
                 </p>

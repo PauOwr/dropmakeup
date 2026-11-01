@@ -42,7 +42,7 @@ export default function ProductPreview({
       className="group block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
       data-testid="product-wrapper"
     >
-      <div className="relative aspect-4/5 overflow-hidden bg-linear-to-b from-nude-soft to-white">
+      <div className="relative aspect-square overflow-hidden bg-linear-to-b from-nude-soft to-white">
         {primaryImage ? (
           <Image
             src={primaryImage}
